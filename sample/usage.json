@@ -1,15 +1,42 @@
 {
   "resources": {
-    "AggregateWeather": {
-      "runs_per_month": {
+    "Aggregate": {
+      "invocations_per_month": {
         "value": "30",
         "basis": "requirement",
-        "source": "docs/requirements/weather-daily.md 5.1 (once a day)"
+        "source": "docs/requirements/weather-daily.md 5.1 (once a day, one invocation per run)"
       },
-      "seconds_per_run": {
-        "value": "126",
+      "duration_ms_by_memory": {
+        "values": {
+          "1024": "38922",
+          "1536": "34521",
+          "2048": "26747",
+          "3008": "25774"
+        },
         "basis": "measured",
-        "source": "Glue job run on 2026-10-24 (ExecutionTime 126 s, G.1X x 2)"
+        "source": "Billed Duration in the Lambda REPORT logs with 2025.csv (1,311 MB, year-end size), one run per memory size, 2026-10-25"
+      },
+      "max_memory_used_mb_by_memory": {
+        "values": {
+          "1024": "1012",
+          "1536": "1523",
+          "2048": "1564",
+          "3008": "1565"
+        },
+        "basis": "measured",
+        "source": "Max Memory Used in the same REPORT logs (2025.csv, year-end size)"
+      }
+    },
+    "WeatherDaily": {
+      "executions_per_month": {
+        "value": "30",
+        "basis": "requirement",
+        "source": "docs/requirements/weather-daily.md 5.1"
+      },
+      "transitions_per_execution": {
+        "value": "1",
+        "basis": "measured",
+        "source": "Execution history on 2026-10-24: one Task state"
       }
     }
   }
