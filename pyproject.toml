@@ -1,0 +1,53 @@
+[project]
+name = "pr-cost-agent"
+version = "0.1.0"
+description = "A requirements reviewer agent for pull requests, with one tool that prices design alternatives"
+requires-python = ">=3.12"
+dependencies = [
+    "boto3>=1.40",
+    "ears-trace",
+]
+
+[project.scripts]
+ledger = "ledger.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["ledger", "pr_agent"]
+
+[dependency-groups]
+agent = [
+    "bedrock-agentcore==1.24.1",
+    "strands-agents==1.59.0",
+]
+cdk = [
+    "aws-cdk-lib==2.274.0",
+    "constructs>=10.4,<11",
+]
+dev = ["pytest>=8", "pytest-cov>=5", "ruff>=0.6", "mypy>=1.11"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+ignore_missing_imports = true
+
+[tool.uv.sources]
+ears-trace = { git = "https://github.com/sh-fk2/ears-trace", rev = "56b4c3f8c2c517dd994308a9c762b5198187f42b" }
+
+[tool.ruff.lint.per-file-ignores]
+# プロンプトの文章は折り返すとモデルに渡る文が変わるので、行の長さを問わない
+"pr_agent/agent.py" = ["E501"]

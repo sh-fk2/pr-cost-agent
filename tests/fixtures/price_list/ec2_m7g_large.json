@@ -1,0 +1,37 @@
+{
+  "product": {
+    "productFamily": "Compute Instance",
+    "attributes": {
+      "usagetype": "APN1-BoxUsage:m7g.large",
+      "operation": "RunInstances",
+      "regionCode": "ap-northeast-1"
+    },
+    "sku": "ZW83F4MNM6773ERR"
+  },
+  "serviceCode": "AmazonEC2",
+  "terms": {
+    "OnDemand": {
+      "ZW83F4MNM6773ERR.JRTCKXETXF": {
+        "priceDimensions": {
+          "ZW83F4MNM6773ERR.JRTCKXETXF.6YS6EN2CT7": {
+            "unit": "Hrs",
+            "endRange": "Inf",
+            "description": "$0.1054 per On Demand Linux m7g.large Instance Hour",
+            "appliesTo": [],
+            "rateCode": "ZW83F4MNM6773ERR.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.1054000000"
+            }
+          }
+        },
+        "sku": "ZW83F4MNM6773ERR",
+        "effectiveDate": "2026-10-01T00:00:00Z",
+        "offerTermCode": "JRTCKXETXF",
+        "termAttributes": {}
+      }
+    }
+  },
+  "version": "20261023221355",
+  "publicationDate": "2026-10-23T22:13:55Z"
+}

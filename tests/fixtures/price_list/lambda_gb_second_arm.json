@@ -1,0 +1,59 @@
+{
+  "product": {
+    "productFamily": "Serverless",
+    "attributes": {
+      "usagetype": "Lambda-GB-Second-ARM",
+      "operation": "",
+      "regionCode": "us-east-1"
+    },
+    "sku": "72SBSFWPMDTH8S3J"
+  },
+  "serviceCode": "AWSLambda",
+  "terms": {
+    "OnDemand": {
+      "72SBSFWPMDTH8S3J.JRTCKXETXF": {
+        "priceDimensions": {
+          "72SBSFWPMDTH8S3J.JRTCKXETXF.AVR3V96UTF": {
+            "unit": "Lambda-GB-Second",
+            "endRange": "Inf",
+            "description": "AWS Lambda - Total Compute for ARM - US East (Northern Virginia)-Tier-3",
+            "appliesTo": [],
+            "rateCode": "72SBSFWPMDTH8S3J.JRTCKXETXF.AVR3V96UTF",
+            "beginRange": "18750000000",
+            "pricePerUnit": {
+              "USD": "0.0000106667"
+            }
+          },
+          "72SBSFWPMDTH8S3J.JRTCKXETXF.6JGAYSJBNY": {
+            "unit": "Lambda-GB-Second",
+            "endRange": "18750000000",
+            "description": "AWS Lambda - Total Compute for ARM - US East (Northern Virginia)-Tier-2",
+            "appliesTo": [],
+            "rateCode": "72SBSFWPMDTH8S3J.JRTCKXETXF.6JGAYSJBNY",
+            "beginRange": "7500000000",
+            "pricePerUnit": {
+              "USD": "0.0000120001"
+            }
+          },
+          "72SBSFWPMDTH8S3J.JRTCKXETXF.6NBUNBXSC3": {
+            "unit": "Lambda-GB-Second",
+            "endRange": "7500000000",
+            "description": "AWS Lambda - Total Compute for ARM - US East (Northern Virginia)-Tier-1",
+            "appliesTo": [],
+            "rateCode": "72SBSFWPMDTH8S3J.JRTCKXETXF.6NBUNBXSC3",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.0000133334"
+            }
+          }
+        },
+        "sku": "72SBSFWPMDTH8S3J",
+        "effectiveDate": "2026-10-01T00:00:00Z",
+        "offerTermCode": "JRTCKXETXF",
+        "termAttributes": {}
+      }
+    }
+  },
+  "version": "20261022183959",
+  "publicationDate": "2026-10-22T18:39:59Z"
+}

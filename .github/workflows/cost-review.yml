@@ -1,0 +1,63 @@
+name: cost-review
+
+# フォークからの PR に AWS の認証情報を渡さないよう、pull_request_target は使わない
+on:
+  pull_request:
+    paths:
+      - "sample/**"
+
+# 途中で打ち切ると見積もりの後片付けが走らないので、打ち切らずに順番に動かす
+concurrency:
+  group: cost-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+
+permissions: {}
+
+jobs:
+  # PR のコード（CDK アプリ）を動かすジョブ。AWS の権限を持たせない。
+  # base と head を別のジョブにして、head のコードが base の結果を書き換えられないようにする
+  synth:
+    strategy:
+      matrix:
+        side: [base, head]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ matrix.side == 'base' && github.event.pull_request.base.sha || github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
+        with:
+          enable-cache: false
+      - name: cdk synth
+        env:
+          SIDE: ${{ matrix.side }}
+        run: |
+          (cd sample && npx -y aws-cdk@2.1146.1 synth -q -o "$RUNNER_TEMP/cdk.out")
+          # PR のコードが置いたファイルを混ぜないよう、上げるディレクトリは synth の後に作り直す
+          rm -rf "$RUNNER_TEMP/out" && mkdir -p "$RUNNER_TEMP/out"
+          cp "$RUNNER_TEMP/cdk.out/WeatherDaily.template.json" "$RUNNER_TEMP/out/template.json"
+          # 実行時間や回数の前提（spec §14.1）。側ごとのファイルで見積もる
+          if [ -f sample/usage.json ]; then cp sample/usage.json "$RUNNER_TEMP/out/usage.json"; fi
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: template-${{ matrix.side }}
+          # 上げるのは決まった2つのファイルだけ（無い usage.json は飛ばす）
+          path: |
+            ${{ runner.temp }}/out/template.json
+            ${{ runner.temp }}/out/usage.json
+          if-no-files-found: error
+          retention-days: 1
+
+  # AWS とエージェントを使う部分は、main にある再利用ワークフローを名指しで呼ぶ。
+  # PR でこのファイルを書き換えても、ロールの信頼条件（job_workflow_ref）が main のそれしか通さない
+  review:
+    needs: synth
+    permissions:
+      contents: read
+      id-token: write
+      pull-requests: write
+    uses: sh-fk2/pr-cost-agent/.github/workflows/cost-review-aws.yml@main

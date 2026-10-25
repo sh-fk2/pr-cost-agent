@@ -1,0 +1,16 @@
+{
+  "resources": {
+    "AggregateWeather": {
+      "runs_per_month": {
+        "value": "30",
+        "basis": "requirement",
+        "source": "docs/requirements/weather-daily.md 5.1 (once a day)"
+      },
+      "seconds_per_run": {
+        "value": "126",
+        "basis": "measured",
+        "source": "Glue job run on 2026-10-24 (ExecutionTime 126 s, G.1X x 2)"
+      }
+    }
+  }
+}

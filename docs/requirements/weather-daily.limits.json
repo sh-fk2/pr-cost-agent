@@ -1,0 +1,4 @@
+{
+  "max_monthly_usd": {"value": "1.00", "requirement": "R-05"},
+  "min_free_memory_percent": {"value": "10", "requirement": "R-04"}
+}

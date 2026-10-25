@@ -1,0 +1,3 @@
+{
+  "app": "uv run --group cdk python app.py"
+}

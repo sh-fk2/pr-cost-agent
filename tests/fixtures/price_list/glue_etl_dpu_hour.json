@@ -1,0 +1,37 @@
+{
+  "product": {
+    "productFamily": "AWS Glue",
+    "attributes": {
+      "usagetype": "USE1-ETL-DPU-Hour",
+      "operation": "Jobrun",
+      "regionCode": "us-east-1"
+    },
+    "sku": "CXGYW3G8GS2SN9UG"
+  },
+  "serviceCode": "AWSGlue",
+  "terms": {
+    "OnDemand": {
+      "CXGYW3G8GS2SN9UG.JRTCKXETXF": {
+        "priceDimensions": {
+          "CXGYW3G8GS2SN9UG.JRTCKXETXF.6YS6EN2CT7": {
+            "unit": "DPU-Hour",
+            "endRange": "Inf",
+            "description": "$0.44 per Data Processing Unit-Hour for AWS Glue ETL job",
+            "appliesTo": [],
+            "rateCode": "CXGYW3G8GS2SN9UG.JRTCKXETXF.6YS6EN2CT7",
+            "beginRange": "0",
+            "pricePerUnit": {
+              "USD": "0.4400000000"
+            }
+          }
+        },
+        "sku": "CXGYW3G8GS2SN9UG",
+        "effectiveDate": "2026-10-01T00:00:00Z",
+        "offerTermCode": "JRTCKXETXF",
+        "termAttributes": {}
+      }
+    }
+  },
+  "version": "20261012185542",
+  "publicationDate": "2026-10-12T18:55:42Z"
+}
