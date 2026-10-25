@@ -61,3 +61,6 @@ jobs:
       id-token: write
       pull-requests: write
     uses: sh-fk2/pr-cost-agent/.github/workflows/cost-review-aws.yml@main
+    secrets:
+      AWS_ROLE_ARN: ${{ secrets.AWS_ROLE_ARN }}
+      AGENT_RUNTIME_ARN: ${{ secrets.AGENT_RUNTIME_ARN }}

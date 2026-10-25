@@ -3,6 +3,12 @@ name: cost-review-aws
 # cost-review から呼ばれる。AWS のロールはこのファイル（main）から来たときだけ引き受けられる
 on:
   workflow_call:
+    # ARN にはアカウント番号が入るので、公開リポジトリのログに出ないよう secrets で受け取る
+    secrets:
+      AWS_ROLE_ARN:
+        required: true
+      AGENT_RUNTIME_ARN:
+        required: true
 
 permissions: {}
 
@@ -19,7 +25,7 @@ jobs:
     env:
       AGENT_MODES: ${{ vars.AGENT_MODES || 'tool' }}
       # エージェント（Strands のループとツール）は AgentCore Runtime で動く（spec §17）
-      AGENT_RUNTIME_ARN: ${{ vars.AGENT_RUNTIME_ARN }}
+      AGENT_RUNTIME_ARN: ${{ secrets.AGENT_RUNTIME_ARN }}
       # 要件と閾値はランタイムの zip に同梱（デプロイしたときの main。spec §17.1）
       # sample のテンプレートのリージョン（usageType の接頭辞が変わる）
       TEMPLATE_REGION: ${{ vars.TEMPLATE_REGION || 'us-east-1' }}
@@ -56,8 +62,9 @@ jobs:
           test -f templates/base/template.json && test -f templates/head/template.json
       - uses: aws-actions/configure-aws-credentials@e1253824e5c10ff9df46874f81ed3ec929e19cfd # v6.3.0
         with:
-          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: us-east-1
+          mask-aws-account-id: true
       - name: 確定値の欄（ledger compare）
         id: compare
         continue-on-error: true
